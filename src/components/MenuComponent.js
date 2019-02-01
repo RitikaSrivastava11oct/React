@@ -12,21 +12,17 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         /* use of state inside constructor (this.state={dishes:[{...},{..}...],}; )*/
-        this.state = {
-          selectedDish: null 
+      
 
-        }
-        console.log('menu component constructor() is invoked which is one of the mounting lifecycle method');
+       
+  
     }
 
     componentDidMount()
     {
       console.log('menu component componentDidMount() is invoked which is one of the mounting lifecycle method');
     }
-    onDishSelect(dish)
-    {
-      this.setState({selectedDish:dish});
-    }
+   
 
    
     
@@ -35,7 +31,10 @@ class Menu extends Component {
             return (
               <div key={dish.id} className="col-12  col-md-5 m-1">
 
-                <Card onClick={() =>this.onDishSelect(dish)}>
+                 <Card key={dish.id}
+                        onClick={() => this.props.onClick(dish.id)}>
+                        
+                
                     <CardImg width="100%" src={dish.image} alt={dish.name} />
 
                     <CardImgOverlay>
@@ -54,8 +53,7 @@ class Menu extends Component {
             <div className="row">
                   {menu}
             </div>
-            <DishDetail selectedDish={this.state.selectedDish}/>
-           
+            
           </div>
         );
     }

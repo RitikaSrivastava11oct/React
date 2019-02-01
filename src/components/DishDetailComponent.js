@@ -6,6 +6,24 @@ class DishDetail extends Component{
 		super(props);
 	}
 	/* to show the details of the the dish which is selected*/
+	/* if((this.props.selectedDish))!=null)
+    		{
+    		
+    		 	(this.props.selectedDish).comments.map((comment) => {
+            	return (
+            	<div>{comment}</div>
+            	);
+        		});
+        	
+    		}
+    		else
+    		{
+			return(
+          		<div>
+          		</div>
+        	);
+    		}
+            </div>*/
 	 renderDish(dish)
     {
       if(dish!=null)
@@ -36,29 +54,10 @@ class DishDetail extends Component{
 		<div className="row">
 			<div className="col-12 col-md-5 m-1">
                {this.renderDish(this.props.selectedDish)}
-            </div>
-            <div className="col-12 col-md-5">
-            	
-      		if((this.props.selectedDish))!=null)
-    		{
-    		
-    		 	(this.props.selectedDish).comments.map((comment) => {
-            	return (
-            	<div>{comment}</div>
-            	);
-        		});
-        	
-    		}
-    		else
-    		{
-			return(
-          		<div>
-          		</div>
-        	);
-    		}
-            </div>
         </div>
+            </div>
+           
 		);
 	}
 }
-export default DishDetail;
+export default DishDetail; 
