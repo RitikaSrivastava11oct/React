@@ -1,41 +1,67 @@
+//redoing assignment 1
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardTitle, CardBody } from 'reactstrap';
-class DishDetail extends Component{
+import { Card, CardImg, CardText, CardBody,CardTitle } from 'reactstrap';
 
-	constructor(props){
-		super(props);
-	}
-	/* to show the details of the the dish which is selected*/
-	/* if((this.props.selectedDish))!=null)
-    		{
-    		
-    		 	(this.props.selectedDish).comments.map((comment) => {
-            	return (
-            	<div>{comment}</div>
-            	);
-        		});
-        	
-    		}
-    		else
-    		{
-			return(
-          		<div>
-          		</div>
-        	);
-    		}
-            </div>*/
-	 renderDish(dish)
-    {
-      if(dish!=null)
+class DishDetail extends Component{
+  constructor(props){
+    super(props);
+   
+}
+rendercomments(){
+ 
+  
+   if(this.props.selectedDish!=null)
+   {
+   const comment = this.props.selectedDish.comments.map((eachComment) => {
+    return (
+      <ul className="list-unstyled">
+      <li>
+         <p className="text-left">{eachComment.comment}</p>
+         <p className="text-left">-- {eachComment.author} , {eachComment.date.format(date)} </p>
+      </li>
+      </ul>
+        );
+   });
+
+ return (
+          
+            <div>
+                  {comment}
+            </div>
+            );
+}
+
+else
+{
+    return(
+      <div></div>  
+    );
+}
+  
+}
+  render(){
+   
+      if(this.props.selectedDish!=null)
       {
         return(
+        <div className="container">
+
+          <div className="row">
+           <div className="col-12  col-md-5 m-1">
             <Card>
-               <CardImg width="100%" src={dish.image} alt={dish.name} />
+               <CardImg width="100%" src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
                <CardBody>
-                  <CardTitle>{dish.name}</CardTitle>
-                  <CardText>{dish.description}</CardText>
+                  <CardTitle>{this.props.selectedDish.name}</CardTitle>
+                  <CardText>{this.props.selectedDish.description}</CardText>
                 </CardBody>
             </Card>
+           </div>
+          <div className="col-12  col-md-5 m-1">
+            <h4>Comments</h4>
+            {this.rendercomments()}
+          </div>
+         </div>
+        </div>
           );
       }
       else
@@ -44,20 +70,8 @@ class DishDetail extends Component{
           <div></div>
         );
       }
-    }
 
-    
-	
-	render()
-	{
-		return(
-		<div className="row">
-			<div className="col-12 col-md-5 m-1">
-               {this.renderDish(this.props.selectedDish)}
-        </div>
-            </div>
-           
-		);
-	}
+     
+  }
 }
-export default DishDetail; 
+export default DishDetail;
