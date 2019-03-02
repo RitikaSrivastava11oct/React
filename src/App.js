@@ -14,6 +14,8 @@ class App extends Component {
     };
   }
   render() {
+  //var moment = require('moment');
+
     return (
       <div className="App">
         <Navbar dark color="primary">

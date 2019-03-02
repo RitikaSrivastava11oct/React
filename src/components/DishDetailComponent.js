@@ -1,6 +1,7 @@
 //redoing assignment 1
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody,CardTitle } from 'reactstrap';
+import Moment from 'moment';
 
 class DishDetail extends Component{
   constructor(props){
@@ -13,11 +14,18 @@ rendercomments(){
    if(this.props.selectedDish!=null)
    {
    const comment = this.props.selectedDish.comments.map((eachComment) => {
+    //var date=this.string_to_date(eachComment.date);
+    Moment.locale('en');
     return (
       <ul className="list-unstyled">
       <li>
-         <p className="text-left">{eachComment.comment}</p>
-         <p className="text-left">-- {eachComment.author} , {eachComment.date.format(date)} </p>
+      <blockquote>
+               <p className="text-left">{eachComment.comment}</p>
+              <p className="text-left">-- {eachComment.author},{Moment(eachComment.date).format('MMM DD,YYYY')}</p>
+              /*<p><Moment format="MMM/DD/YYYY">
+                {eachComment.date}
+            </Moment> </p>*/
+      </blockquote>
       </li>
       </ul>
         );
