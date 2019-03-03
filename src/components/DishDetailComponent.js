@@ -15,7 +15,7 @@ rendercomments(){
    {
    const comment = this.props.selectedDish.comments.map((eachComment) => {
     //var date=this.string_to_date(eachComment.date);
-    Moment.locale('en');
+    //Moment.locale('en');
     return (
       <ul className="list-unstyled">
       <li>
