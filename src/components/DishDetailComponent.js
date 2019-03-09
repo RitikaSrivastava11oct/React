@@ -11,9 +11,9 @@ class DishDetail extends Component{
 rendercomments(){
  
   
-   if(this.props.selectedDish!=null)
+   if(this.props.dish!=null)
    {
-   const comment = this.props.selectedDish.comments.map((eachComment) => {
+   const comment = this.props.dish.comments.map((eachComment) => {
 
     return (
       <ul className="list-unstyled">
@@ -46,7 +46,7 @@ else
 }
   render(){
    
-      if(this.props.selectedDish!=null)
+      if(this.props.dish!=null)
       {
         return(
         <div className="container">
@@ -54,10 +54,10 @@ else
           <div className="row">
            <div className="col-12  col-md-5 m-1">
             <Card>
-               <CardImg width="100%" src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
+               <CardImg width="100%" src={this.props.dish.image} alt={this.props.dish.name} />
                <CardBody>
-                  <CardTitle>{this.props.selectedDish.name}</CardTitle>
-                  <CardText>{this.props.selectedDish.description}</CardText>
+                  <CardTitle>{this.props.dish.name}</CardTitle>
+                  <CardText>{this.props.dish.description}</CardText>
                 </CardBody>
             </Card>
            </div>

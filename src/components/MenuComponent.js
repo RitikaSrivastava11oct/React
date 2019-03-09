@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardTitle, CardBody } from 'reactstrap';
-import DishDetail from './DishDetailComponent';
+import { Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
+//import DishDetail from './DishDetailComponent';
 /* to create a new component*/
 /* to render it on the browser this menu component will be imported in the App.js file*/
 
@@ -8,17 +8,12 @@ import DishDetail from './DishDetailComponent';
 class Menu extends Component {
   /*first define constructor and call super also*/
     constructor(props) {
-        super(props);
+       super(props);
         /* use of state inside constructor (this.state={dishes:[{...},{..}...],}; )*/
-        this.state = {
-          selectedDish: null 
-
+       
         }
-    }
-    onDishSelect(dish)
-    {
-      this.setState({selectedDish:dish});
-    }
+   
+    
 
     /*renderDish(dish)
     {
@@ -36,8 +31,8 @@ class Menu extends Component {
       }
       else
       {
-        return(<div></div>);
-          
+        return(
+          <div></div>);
       }
     }*/
     
@@ -46,7 +41,7 @@ class Menu extends Component {
             return (
               <div key={dish.id} className="col-12  col-md-5 m-1">
 
-                <Card onClick={() =>this.onDishSelect(dish)}>
+                <Card onClick={() => this.props.onClick(dish.id)}>
                     <CardImg width="100%" src={dish.image} alt={dish.name} />
 
                     <CardImgOverlay>
@@ -63,10 +58,7 @@ class Menu extends Component {
             <div className="row">
                   {menu}
             </div>
-            <div className="row">
-              
-               <DishDetail selectedDish={this.state.selectedDish} />
-            </div>
+            
           </div>
         );
     }
