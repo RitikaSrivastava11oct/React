@@ -6,7 +6,7 @@ function Contact(props) {
     return(
         <div className="container">
 
-           <div className="row">
+        <div className="row">
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Contact Us</BreadcrumbItem>
@@ -15,7 +15,7 @@ function Contact(props) {
                     <h3>Contact Us</h3>
                     <hr />
                 </div>                
-            </div>
+        </div>
 
             <div className="row row-content">
                 <div className="col-12">

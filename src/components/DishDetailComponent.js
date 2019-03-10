@@ -1,13 +1,14 @@
 //redoing assignment 1
 import React from 'react';
-import { Card, CardImg, CardText, CardBody,CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody,CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Moment from 'moment';
 
 
-function Rendercomments({props}){
-  if(props.dish!=null)
+function Rendercomments({comments}){
+  if(comments!=null)
   {
-    const comment = props.dish.comments.map((eachComment) => {
+    const comment = comments.map((eachComment) => {
      return (
       <ul className="list-unstyled">
       <li>
@@ -42,6 +43,18 @@ function DishDetail(props){
         <div className="container">
 
           <div className="row">
+            <Breadcrumb>
+              <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+              <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+            </Breadcrumb>
+            <div className="col-12">
+              <h3>{props.dish.name}</h3>
+              <hr />
+            </div>                
+          </div>
+
+
+          <div className="row">
            <div className="col-12  col-md-5 m-1">
             <Card>
                <CardImg width="100%" src={props.dish.image} alt={props.dish.name} />
@@ -53,7 +66,7 @@ function DishDetail(props){
            </div>
           <div className="col-12  col-md-5 m-1">
             <h4>Comments</h4>
-            <Rendercomments props={props}/>
+            <Rendercomments comments={props.comments}/>
           </div>
          </div>
         </div>
