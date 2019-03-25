@@ -7,6 +7,8 @@ import Contact from './ContactComponent';
 import Menu from './MenuComponent';
 import About from './AboutComponent';
 import DishDetail from './DishDetailComponent';
+//to disptach the action to the store we are importing the action
+import { addComment } from '../redux/ActionCreators';
 //these states will be moved to reducer.js file bcoz now we will obtain the states from there to use redux
 /*import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
@@ -26,6 +28,14 @@ const mapStateToProps = state => {
     leaders: state.leaders
   }
 }
+/*this function call where we're calling the action creator will return the action object for 
+adding a comment, that action object is then given as a parameter to the dispatch function.
+this way addComment will be available to us here ans we can use to send to other component*/
+ const mapDispatchToProps = dispatch => ({
+  
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+  
+  });
 
 class Main extends Component {
 
@@ -60,6 +70,7 @@ class Main extends Component {
       
           <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
             comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+            addComment={this.props.addComment}
             />
       );
     };
@@ -93,5 +104,5 @@ class Main extends Component {
     );
   }
 }
-
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+;
