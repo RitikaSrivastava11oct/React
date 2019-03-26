@@ -8,7 +8,7 @@ import Menu from './MenuComponent';
 import About from './AboutComponent';
 import DishDetail from './DishDetailComponent';
 //to disptach the action to the store we are importing the action
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
 //these states will be moved to reducer.js file bcoz now we will obtain the states from there to use redux
 /*import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
@@ -28,12 +28,13 @@ const mapStateToProps = state => {
     leaders: state.leaders
   }
 }
-/*this function call where we're calling the action creator will return the action object for 
+{/*this function call where we're calling the action creator will return the action object for 
 adding a comment, that action object is then given as a parameter to the dispatch function.
-this way addComment will be available to us here ans we can use to send to other component*/
+this way addComment will be available to us here ans we can use to send to other component*/}
  const mapDispatchToProps = dispatch => ({
   
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    fetchDishes: () => { dispatch(fetchDishes())}
   
   });
 
@@ -52,12 +53,17 @@ class Main extends Component {
     };*/
   }
 
+  componentDidMount() {
+    this.props.fetchDishes();
+  }
 
   render() {
     const HomePage = () => {
       return(
           <Home 
-              dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+              dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+              dishesLoading={this.props.dishes.isLoading}
+              dishesErrMess={this.props.dishes.errMess}
               promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
               leader={this.props.leaders.filter((leader) => leader.featured)[0]}
           />
@@ -68,7 +74,9 @@ class Main extends Component {
    const DishWithId = ({match}) => {
       return(
       
-          <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+          <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
+            isLoading={this.props.dishes.isLoading}
+            errMess={this.props.dishes.errMess}
             comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
             addComment={this.props.addComment}
             />
