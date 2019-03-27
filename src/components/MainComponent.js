@@ -14,7 +14,7 @@ import { addComment, fetchDishes } from '../redux/ActionCreators';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';*/
-
+import { actions } from 'react-redux-form';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 // to connect main component to redux
@@ -34,7 +34,9 @@ this way addComment will be available to us here ans we can use to send to other
  const mapDispatchToProps = dispatch => ({
   
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => { dispatch(fetchDishes())}
+    fetchDishes: () => { dispatch(fetchDishes())},
+    //to reset the form after submitting it
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
   
   });
 
@@ -103,7 +105,7 @@ class Main extends Component {
               <Route path='/home' component={HomePage} />
               <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
               <Route path='/menu/:dishId' component={DishWithId} />
-              <Route exact path='/contactus' component={Contact} />
+              <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
               <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders}/>} />
               <Redirect to="/home" />
           </Switch>
