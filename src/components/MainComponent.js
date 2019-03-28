@@ -8,7 +8,7 @@ import Menu from './MenuComponent';
 import About from './AboutComponent';
 import DishDetail from './DishDetailComponent';
 //to disptach the action to the store we are importing the action
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 //these states will be moved to reducer.js file bcoz now we will obtain the states from there to use redux
 /*import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
@@ -33,7 +33,7 @@ adding a comment, that action object is then given as a parameter to the dispatc
 this way addComment will be available to us here ans we can use to send to other component*/}
  const mapDispatchToProps = dispatch => ({
   
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
     fetchDishes: () => { dispatch(fetchDishes())},
     //to reset the form after submitting it
     resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
@@ -87,7 +87,7 @@ class Main extends Component {
             errMess={this.props.dishes.errMess}
             comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
             commentsErrMess={this.props.comments.errMess}
-            addComment={this.props.addComment}
+            postComment={this.props.postComment}
             />
       );
     };
