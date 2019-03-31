@@ -21,7 +21,7 @@ export const ConfigureStore = () => {
         }),
         
      /*another paramter of createStore() fun
-        by both the Thunk and the Logger become available within our application*/
+        by this both the Thunk and the Logger become available within our application*/
         applyMiddleware(thunk, logger)
 
     );

@@ -155,3 +155,78 @@ export const addPromos = (promos) => ({
     type: ActionTypes.ADD_PROMOS,
     payload: promos
 });
+
+// assignment 4 task 1 c2
+export const fetchLeaders = () => (dispatch) => {
+    
+    dispatch(leadersLoading());
+
+    return fetch(baseUrl + 'leaders')
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
+    .then(response => response.json())
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(leadersFailed(error.message)));
+}
+
+export const leadersLoading = () => ({
+    type: ActionTypes.LEADERS_LOADING
+});
+
+export const leadersFailed = (errmess) => ({
+    type: ActionTypes.LEADERS_FAILED,
+    payload: errmess
+});
+
+export const addLeaders = (leaders) => ({
+    type: ActionTypes.ADD_LEADERS,
+    payload: leaders
+});
+
+// assignment 4 task 2 c2
+export const postFeedback = (firstname, lastname, telnum, email, agree, contactType, message) => (dispatch) => {
+    const feedback1 = {
+        firstname: firstname,
+        lastname: lastname,
+        telnum: telnum,
+        email: email,
+        agree: agree,
+        contactType: contactType,
+        message: message
+    };
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(feedback1),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(feed => { alert('Thank you for your feedback!\n'+'"firstname":'+JSON.stringify(feed.firstname.toString())+','+'"lastname":'+JSON.stringify(feed.lastname.toString())+','+'"telnum":'+JSON.stringify(feed.telnum.toString())+','+'"email":'+JSON.stringify(feed.email.toString())+','+'"agree":'+JSON.stringify(feed.agree.toString())+','+'"contactType":'+JSON.stringify(feed.contactType.toString())+','+'"message":'+JSON.stringify(feed.message.toString())+','+'"id":'+JSON.stringify(feed.id.toString()));})
+    .catch(error =>  { console.log('post feedback', error.message); 
+                       alert('Your feedback could not be posted\nError: '+error.message); });
+};
